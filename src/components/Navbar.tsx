@@ -2,14 +2,7 @@
 
 import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useMotionValueEvent, useScroll } from "framer-motion";
-
-const navLinks = [
-  { label: "Features", href: "#features" },
-  { label: "Discover", href: "#discover" },
-  { label: "Batches", href: "#batches" },
-  { label: "Reviews", href: "#reviews" },
-  { label: "Early Access", href: "#download" },
-];
+import { siteConfig } from "@/config/site";
 
 export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
@@ -73,13 +66,13 @@ export default function Navbar() {
 
           {/* Center Nav */}
           <div className="hidden lg:flex items-center gap-0.5">
-            {navLinks.map((link) => (
+            {siteConfig.navigation.map((link) => (
               <a
-                key={link.label}
+                key={link.name}
                 href={link.href}
                 className="relative px-3.5 py-2 text-[13px] font-medium text-text-secondary hover:text-text-primary transition-colors duration-200 group"
               >
-                {link.label}
+                {link.name}
                 <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-primary-500 rounded-full group-hover:w-5 transition-all duration-300" />
               </a>
             ))}
@@ -88,17 +81,11 @@ export default function Navbar() {
           {/* Right CTAs */}
           <div className="hidden lg:flex items-center gap-2.5">
             <a
-              href="#waitlist"
-              className="px-4 py-2 text-[13px] font-semibold text-text-secondary hover:text-primary-600 hover:bg-primary-50/80 rounded-xl transition-all duration-200"
-            >
-              Join Waitlist
-            </a>
-            <a
-              href="#download"
+              href="#early-access"
               className="group relative px-4.5 py-2.5 text-[13px] font-semibold text-white rounded-xl bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 shadow-sm hover:shadow-md hover:shadow-primary-500/20 transition-all duration-300 transform hover:-translate-y-px"
             >
               <span className="relative z-10 flex items-center gap-1.5">
-                Request Early Access
+                {siteConfig.cta.primary}
               </span>
             </a>
           </div>
@@ -138,9 +125,9 @@ export default function Navbar() {
               className="absolute right-0 top-0 bottom-0 w-72 max-w-[80vw] bg-white shadow-2xl"
             >
               <div className="p-5 pt-20 flex flex-col gap-1">
-                {navLinks.map((link, i) => (
+                {siteConfig.navigation.map((link, i) => (
                   <motion.a
-                    key={link.label}
+                    key={link.name}
                     href={link.href}
                     onClick={() => setMobileOpen(false)}
                     initial={{ opacity: 0, x: 20 }}
@@ -148,23 +135,16 @@ export default function Navbar() {
                     transition={{ delay: 0.1 + i * 0.05 }}
                     className="px-4 py-3 text-[15px] font-medium text-text-secondary hover:text-primary-600 hover:bg-primary-50 rounded-xl transition-colors"
                   >
-                    {link.label}
+                    {link.name}
                   </motion.a>
                 ))}
                 <div className="mt-4 pt-4 border-t border-gray-100 flex flex-col gap-2.5">
                   <a
-                    href="#waitlist"
-                    onClick={() => setMobileOpen(false)}
-                    className="px-4 py-3 text-center text-sm font-semibold text-primary-600 border border-primary-200 rounded-xl hover:bg-primary-50 transition-colors"
-                  >
-                    Join Waitlist
-                  </a>
-                  <a
-                    href="#download"
+                    href="#early-access"
                     onClick={() => setMobileOpen(false)}
                     className="px-4 py-3 text-center text-sm font-semibold text-white bg-gradient-to-r from-primary-500 to-primary-600 rounded-xl shadow-md"
                   >
-                    Request Early Access
+                    {siteConfig.cta.primary}
                   </a>
                 </div>
               </div>
@@ -175,3 +155,4 @@ export default function Navbar() {
     </>
   );
 }
+

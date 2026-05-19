@@ -65,10 +65,10 @@ function StarRating({ rating, reviews }: { rating: number; reviews: number }) {
 
 export default function Discovery() {
   return (
-    <section id="discover" className="relative py-20 lg:py-28 bg-surface-elevated">
+    <section id="discover" className="relative py-20 lg:py-28 bg-surface-elevated overflow-hidden">
       {/* Background */}
       <div className="section-divider" />
-      <div className="absolute -top-40 right-0 w-80 h-80 bg-primary-400/4 rounded-full blur-[100px]" />
+      <div className="absolute -top-40 right-0 w-[200px] sm:w-[320px] h-[200px] sm:h-[320px] bg-primary-400/4 rounded-full blur-[60px] sm:blur-[100px] pointer-events-none" />
 
       <div className="section-container">
         {/* Header */}

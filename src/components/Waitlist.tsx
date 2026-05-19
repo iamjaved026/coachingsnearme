@@ -3,24 +3,27 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
 import AnimatedSection from "./AnimatedSection";
+import { siteConfig } from "@/config/site";
 
 type Role = "student" | "coaching" | "teacher";
 
 export default function Waitlist() {
   const [role, setRole] = useState<Role>("student");
   const [email, setEmail] = useState("");
+  const [pincode, setPincode] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (email.trim()) {
+    if (email.trim() && pincode.trim()) {
       setSubmitted(true);
       setEmail("");
+      setPincode("");
     }
   };
 
   return (
-    <section id="waitlist" className="relative py-20 lg:py-28 bg-surface-dark overflow-hidden">
+    <section id="early-access" className="relative py-20 lg:py-28 bg-surface-dark overflow-hidden">
       <div className="absolute inset-0 mesh-gradient-dark" />
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-primary-500/6 rounded-full blur-[120px]" />
       <div className="absolute bottom-0 right-0 w-72 h-72 bg-purple-500/4 rounded-full blur-[100px]" />
@@ -28,16 +31,16 @@ export default function Waitlist() {
       <div className="relative section-container text-center">
         <AnimatedSection>
           <span className="inline-block px-3.5 py-1.5 rounded-full bg-white/8 text-primary-300 text-xs font-semibold tracking-wide uppercase mb-5 border border-white/8">
-            Early Access
+            Limited Early Access
           </span>
           <h2 className="font-display font-bold text-2xl sm:text-3xl lg:text-4xl text-white tracking-tight mb-4 leading-[1.15]">
-            Escape the WhatsApp{" "}
+            Secure Your Spot on the{" "}
             <span className="bg-gradient-to-r from-primary-400 to-cyan-400 bg-clip-text text-transparent">
-              Coaching Chaos
+              Platform
             </span>
           </h2>
           <p className="text-base text-gray-400 max-w-md mx-auto mb-8 leading-relaxed">
-            Join the waitlist for early access. Help shape the future of coaching discovery, starting in Teghra, Bihar.
+            We are launching city by city. Request early access and help us prioritize your area.
           </p>
         </AnimatedSection>
 
@@ -63,25 +66,35 @@ export default function Waitlist() {
           </div>
 
           {!submitted ? (
-            <form onSubmit={handleSubmit} className="max-w-md mx-auto">
-              <div className="flex gap-2.5">
+            <form onSubmit={handleSubmit} className="max-w-md mx-auto flex flex-col gap-3">
+              <div className="flex flex-col sm:flex-row gap-3">
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your email"
                   required
-                  className="flex-1 px-4 py-3.5 rounded-xl bg-white/6 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all text-[13px]"
+                  className="flex-[2] px-4 py-3.5 rounded-xl bg-white/6 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all text-[13px]"
                 />
-                <button
-                  type="submit"
-                  className="px-6 py-3.5 bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold rounded-xl shadow-md shadow-primary-500/20 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 text-[13px] whitespace-nowrap"
-                >
-                  Join Waitlist
-                </button>
+                <input
+                  type="text"
+                  value={pincode}
+                  onChange={(e) => setPincode(e.target.value)}
+                  placeholder="Pincode (e.g., 851133)"
+                  required
+                  pattern="[0-9]{6}"
+                  maxLength={6}
+                  className="flex-[1] px-4 py-3.5 rounded-xl bg-white/6 border border-white/10 text-white placeholder-gray-500 focus:outline-none focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-all text-[13px]"
+                />
               </div>
-              <p className="text-[11px] text-gray-600 mt-3">
-                No spam, ever. Unsubscribe anytime. We respect your privacy.
+              <button
+                type="submit"
+                className="w-full px-6 py-3.5 bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold rounded-xl shadow-md shadow-primary-500/20 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 text-[14px]"
+              >
+                {siteConfig.cta.primary}
+              </button>
+              <p className="text-[11px] text-gray-500 mt-2">
+                No spam, ever. Your data is secure with us.
               </p>
             </form>
           ) : (
@@ -96,7 +109,7 @@ export default function Waitlist() {
                 </svg>
               </div>
               <h3 className="font-display font-bold text-lg text-white mb-1.5">You&apos;re on the list! 🎉</h3>
-              <p className="text-[13px] text-gray-400">We&apos;ll notify you when we expand to your city.</p>
+              <p className="text-[13px] text-gray-400">We&apos;ll notify you when we launch in your area.</p>
             </motion.div>
           )}
         </AnimatedSection>

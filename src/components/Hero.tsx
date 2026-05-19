@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
+import { siteConfig } from "@/config/site";
 
 export default function Hero() {
   return (
@@ -68,10 +69,10 @@ export default function Hero() {
               className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start"
             >
               <a
-                href="#waitlist"
+                href="#early-access"
                 className="group relative inline-flex items-center justify-center gap-2.5 px-7 py-3.5 text-[15px] font-semibold text-white bg-gradient-to-r from-primary-500 to-primary-600 rounded-2xl shadow-lg shadow-primary-500/20 hover:shadow-xl hover:shadow-primary-500/25 transition-all duration-300 transform hover:-translate-y-0.5"
               >
-                Request Early Access
+                {siteConfig.cta.primary}
                 <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className="transition-transform group-hover:translate-x-0.5">
                   <line x1="5" y1="12" x2="19" y2="12" />
                   <polyline points="12 5 19 12 12 19" />
@@ -79,10 +80,10 @@ export default function Hero() {
                 <span className="absolute inset-0 rounded-2xl bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </a>
               <a
-                href="#features"
+                href="/contact"
                 className="inline-flex items-center justify-center gap-2 px-7 py-3.5 text-[15px] font-semibold text-text-primary bg-white/80 backdrop-blur-sm border border-gray-200/80 rounded-2xl shadow-sm hover:shadow-md hover:border-gray-300 transition-all duration-300 transform hover:-translate-y-0.5"
               >
-                See How It Works
+                {siteConfig.cta.secondary}
               </a>
             </motion.div>
 

@@ -85,10 +85,10 @@ const features = [
 
 export default function Features() {
   return (
-    <section id="features" className="relative py-20 lg:py-28">
+    <section id="features" className="relative py-20 lg:py-28 overflow-hidden">
       {/* Subtle background depth */}
-      <div className="absolute top-0 right-0 w-[500px] h-[500px] bg-primary-400/3 rounded-full blur-[120px]" />
-      <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-violet-400/3 rounded-full blur-[120px]" />
+      <div className="absolute top-0 right-0 w-[300px] sm:w-[500px] h-[300px] sm:h-[500px] bg-primary-400/3 rounded-full blur-[80px] sm:blur-[120px] pointer-events-none" />
+      <div className="absolute bottom-0 left-0 w-[250px] sm:w-[400px] h-[250px] sm:h-[400px] bg-violet-400/3 rounded-full blur-[80px] sm:blur-[120px] pointer-events-none" />
 
       <div className="section-container">
         {/* Section Header */}
