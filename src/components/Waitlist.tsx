@@ -13,12 +13,33 @@ export default function Waitlist() {
   const [pincode, setPincode] = useState("");
   const [submitted, setSubmitted] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (email.trim() && pincode.trim()) {
-      setSubmitted(true);
-      setEmail("");
-      setPincode("");
+      setIsSubmitting(true);
+      try {
+        const response = await fetch("https://formspree.io/f/mjgzywdj", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ role, email, pincode }),
+        });
+        
+        if (response.ok) {
+          setSubmitted(true);
+          setEmail("");
+          setPincode("");
+        } else {
+          console.error("Form submission failed");
+        }
+      } catch (error) {
+        console.error("Form submission error", error);
+      } finally {
+        setIsSubmitting(false);
+      }
     }
   };
 
@@ -89,9 +110,10 @@ export default function Waitlist() {
               </div>
               <button
                 type="submit"
-                className="w-full px-6 py-3.5 bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold rounded-xl shadow-md shadow-primary-500/20 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 text-[14px]"
+                disabled={isSubmitting}
+                className="w-full px-6 py-3.5 bg-gradient-to-r from-primary-500 to-primary-600 text-white font-semibold rounded-xl shadow-md shadow-primary-500/20 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-300 text-[14px] disabled:opacity-70 disabled:cursor-not-allowed"
               >
-                {siteConfig.cta.primary}
+                {isSubmitting ? "Submitting..." : siteConfig.cta.primary}
               </button>
               <p className="text-[11px] text-gray-500 mt-2">
                 No spam, ever. Your data is secure with us.
