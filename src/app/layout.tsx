@@ -24,33 +24,78 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const structuredData = {
-    "@context": "https://schema.org",
-    "@type": "WebApplication",
-    name: siteConfig.name,
-    url: siteConfig.url,
-    description: siteConfig.description,
-    applicationCategory: "EducationalApplication",
-    operatingSystem: "All",
-    offers: {
-      "@type": "Offer",
-      price: "0",
-      priceCurrency: "INR",
-    },
-    provider: {
-      "@type": "Organization",
+  const structuredData = [
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
       name: siteConfig.name,
       url: siteConfig.url,
-      logo: `${siteConfig.url}/icon`,
-      contactPoint: {
-        "@type": "ContactPoint",
-        telephone: siteConfig.support.phone,
-        contactType: "customer service",
-        email: siteConfig.support.email,
-        areaServed: siteConfig.address.country,
+      description: siteConfig.description,
+      publisher: {
+        "@type": "Organization",
+        name: siteConfig.name,
+        logo: {
+          "@type": "ImageObject",
+          url: `${siteConfig.url}/icon-512x512.png`
+        }
+      }
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": ["WebApplication", "SoftwareApplication"],
+      name: siteConfig.name,
+      url: siteConfig.url,
+      description: siteConfig.description,
+      applicationCategory: "EducationalApplication",
+      operatingSystem: "All",
+      offers: {
+        "@type": "Offer",
+        price: "0",
+        priceCurrency: "INR",
+      },
+      author: {
+        "@type": "Person",
+        name: siteConfig.founder.name,
+        url: siteConfig.socials.github,
+        sameAs: [
+          siteConfig.socials.twitter,
+          siteConfig.socials.instagram,
+          siteConfig.socials.linkedin,
+          siteConfig.socials.github
+        ]
+      },
+      provider: {
+        "@type": "Organization",
+        name: siteConfig.name,
+        url: siteConfig.url,
+        logo: `${siteConfig.url}/icon-512x512.png`,
+        contactPoint: {
+          "@type": "ContactPoint",
+          telephone: siteConfig.support.phone,
+          contactType: "customer service",
+          email: siteConfig.support.email,
+          areaServed: siteConfig.address.country,
+        },
       },
     },
-  };
+    {
+      "@context": "https://schema.org",
+      "@type": "Person",
+      name: siteConfig.founder.name,
+      url: siteConfig.socials.github,
+      sameAs: [
+        siteConfig.socials.twitter,
+        siteConfig.socials.instagram,
+        siteConfig.socials.linkedin,
+        siteConfig.socials.github
+      ],
+      jobTitle: "Founder & Creator",
+      worksFor: {
+        "@type": "Organization",
+        name: siteConfig.name
+      }
+    }
+  ];
 
   return (
     <html lang="en" className={`${inter.variable} ${outfit.variable}`}>

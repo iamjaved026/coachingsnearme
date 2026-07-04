@@ -12,10 +12,38 @@ export default function manifest(): MetadataRoute.Manifest {
     theme_color: '#3b82f6', // Tailwind blue-500 (Primary)
     icons: [
       {
-        src: '/icon',
-        sizes: 'any',
-        type: 'image/svg+xml',
+        src: '/favicon-16x16.png',
+        sizes: '16x16',
+        type: 'image/png',
       },
+      {
+        src: '/favicon-32x32.png',
+        sizes: '32x32',
+        type: 'image/png',
+      },
+      {
+        src: '/favicon-96x96.png',
+        sizes: '96x96',
+        type: 'image/png',
+      },
+      {
+        src: '/icon-192x192.png',
+        sizes: '192x192',
+        type: 'image/png',
+        purpose: 'any',
+      },
+      {
+        src: '/icon-512x512.png',
+        sizes: '512x512',
+        type: 'image/png',
+        purpose: 'any',
+      },
+      {
+        src: '/maskable-icon-512x512.png',
+        sizes: '512x512',
+        type: 'image/png',
+        purpose: 'maskable',
+      }
     ],
   };
 }

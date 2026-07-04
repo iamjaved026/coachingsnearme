@@ -1,3 +1,5 @@
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
 import { siteConfig } from "@/config/site";
 import { constructMetadata } from "@/config/seo";
 
@@ -8,11 +10,20 @@ export const metadata = constructMetadata({
 
 export default function TermsPage() {
   return (
-    <main className="min-h-screen pt-32 pb-20 bg-surface-dark overflow-hidden relative">
+    <>
+      <Navbar theme="dark" />
+      <main className="min-h-screen pt-32 pb-20 bg-surface-dark overflow-hidden relative">
       <div className="absolute inset-0 mesh-gradient-dark opacity-50" />
       <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-primary-500/10 rounded-full blur-[120px]" />
 
       <div className="relative max-w-3xl mx-auto px-6 lg:px-8">
+        <a href="/" className="inline-flex items-center gap-2 text-sm text-gray-400 hover:text-white transition-colors mb-8 group">
+          <svg className="w-4 h-4 group-hover:-translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+          </svg>
+          Back to Home
+        </a>
+
         <h1 className="font-display font-bold text-4xl sm:text-5xl text-white tracking-tight mb-4">
           Terms of Service
         </h1>
@@ -55,5 +66,7 @@ export default function TermsPage() {
         </div>
       </div>
     </main>
+    <Footer />
+  </>
   );
 }

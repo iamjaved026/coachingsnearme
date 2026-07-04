@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useMotionValueEvent, useScroll } from "framer-motion";
 import { siteConfig } from "@/config/site";
 
-export default function Navbar() {
+export default function Navbar({ theme = "light" }: { theme?: "light" | "dark" }) {
   const [scrolled, setScrolled] = useState(false);
   const [hidden, setHidden] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -37,6 +37,8 @@ export default function Navbar() {
     return () => { document.body.style.overflow = ""; };
   }, [mobileOpen]);
 
+  const isDarkText = scrolled || theme === "light";
+
   return (
     <>
       <motion.header
@@ -51,16 +53,13 @@ export default function Navbar() {
       >
         <nav className="w-full max-w-[1600px] mx-auto px-4 sm:px-8 lg:px-12 xl:px-16 flex items-center justify-between">
           {/* Logo */}
-          <a href="#" className="flex items-center gap-2 group min-w-0 pr-2">
-            <div className="relative w-8 h-8 rounded-xl bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center shadow-md group-hover:shadow-glow transition-shadow duration-300 flex-shrink-0">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" className="text-white">
-                <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="currentColor" opacity="0.9" />
-                <circle cx="12" cy="9" r="3" fill="white" />
-              </svg>
+          <a href="/" className="flex items-center gap-2 group min-w-0 pr-2">
+            <div className="relative w-8 h-8 rounded-xl flex items-center justify-center shadow-md group-hover:shadow-glow transition-shadow duration-300 flex-shrink-0 overflow-hidden bg-white">
+              <img src="/icon-192x192.png" alt="CoachingsNearMe Logo" className="w-full h-full object-cover" />
             </div>
-            <span className="font-display font-bold text-base sm:text-lg tracking-tight truncate">
+            <span className={`font-display font-bold text-base sm:text-lg tracking-tight truncate transition-colors duration-300 ${isDarkText ? 'text-gray-900' : 'text-white'}`}>
               Coachings<span className="text-primary-500">NearMe</span>
-              <span className="text-text-tertiary text-[13px] sm:text-sm">.in</span>
+              <span className={`text-[13px] sm:text-sm transition-colors duration-300 ${isDarkText ? 'text-gray-500' : 'text-gray-400'}`}>.in</span>
             </span>
           </a>
 
@@ -70,7 +69,7 @@ export default function Navbar() {
               <a
                 key={link.name}
                 href={link.href}
-                className="relative px-3.5 py-2 text-[13px] font-medium text-text-secondary hover:text-text-primary transition-colors duration-200 group"
+                className={`relative px-3.5 py-2 text-[13px] font-medium transition-colors duration-200 group ${isDarkText ? 'text-gray-600 hover:text-gray-900' : 'text-gray-300 hover:text-white'}`}
               >
                 {link.name}
                 <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-primary-500 rounded-full group-hover:w-5 transition-all duration-300" />
@@ -81,7 +80,7 @@ export default function Navbar() {
           {/* Right CTAs */}
           <div className="hidden lg:flex items-center gap-2.5">
             <a
-              href="#early-access"
+              href="/#early-access"
               className="group relative px-4.5 py-2.5 text-[13px] font-semibold text-white rounded-xl bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 shadow-sm hover:shadow-md hover:shadow-primary-500/20 transition-all duration-300 transform hover:-translate-y-px"
             >
               <span className="relative z-10 flex items-center gap-1.5">
@@ -97,9 +96,9 @@ export default function Navbar() {
             aria-label="Toggle menu"
           >
             <div className="w-5 flex flex-col gap-1.5">
-              <span className={`block h-0.5 bg-text-primary rounded-full transition-all duration-300 origin-center ${mobileOpen ? "rotate-45 translate-y-2" : ""}`} />
-              <span className={`block h-0.5 bg-text-primary rounded-full transition-all duration-300 ${mobileOpen ? "opacity-0 scale-0" : ""}`} />
-              <span className={`block h-0.5 bg-text-primary rounded-full transition-all duration-300 origin-center ${mobileOpen ? "-rotate-45 -translate-y-2" : ""}`} />
+              <span className={`block h-0.5 rounded-full transition-all duration-300 origin-center ${isDarkText ? 'bg-gray-900' : 'bg-white'} ${mobileOpen ? "rotate-45 translate-y-2" : ""}`} />
+              <span className={`block h-0.5 rounded-full transition-all duration-300 ${isDarkText ? 'bg-gray-900' : 'bg-white'} ${mobileOpen ? "opacity-0 scale-0" : ""}`} />
+              <span className={`block h-0.5 rounded-full transition-all duration-300 origin-center ${isDarkText ? 'bg-gray-900' : 'bg-white'} ${mobileOpen ? "-rotate-45 -translate-y-2" : ""}`} />
             </div>
           </button>
         </nav>
@@ -140,7 +139,7 @@ export default function Navbar() {
                 ))}
                 <div className="mt-4 pt-4 border-t border-gray-100 flex flex-col gap-2.5">
                   <a
-                    href="#early-access"
+                    href="/#early-access"
                     onClick={() => setMobileOpen(false)}
                     className="px-4 py-3 text-center text-sm font-semibold text-white bg-gradient-to-r from-primary-500 to-primary-600 rounded-xl shadow-md"
                   >

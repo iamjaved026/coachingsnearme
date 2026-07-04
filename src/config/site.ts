@@ -3,7 +3,7 @@ export const siteConfig = {
   url: "https://coachingsnearme.in",
   tagline: "The Future Infrastructure for Coaching Students",
   description:
-    "Discover nearby coachings, compare institutes, manage classes, and organize your educational life in one premium ecosystem. Escaping WhatsApp coaching chaos.",
+    "Find nearby coaching institutes, compare student reviews, explore batch timings, connect with teachers, and manage homework, notes, announcements, and recordings—all in one student-first platform.",
   launchCity: "Teghra, Bihar",
 
   support: {
@@ -21,9 +21,16 @@ export const siteConfig = {
   },
 
   socials: {
-    twitter: "",
-    instagram: "",
-    linkedin: "",
+    twitter: "https://x.com/iamjaved026",
+    instagram: "https://instagram.com/iamjaved026",
+    linkedin: "https://linkedin.com/in/iamjaved026",
+    github: "https://github.com/iamjaved026",
+  },
+
+  founder: {
+    name: "Javed Hussain",
+    displayName: "Javed Hussain",
+    username: "iamjaved026",
   },
 
   navigation: [
@@ -31,6 +38,8 @@ export const siteConfig = {
     { name: "Discover", href: "/#discover" },
     { name: "Batch Workspace", href: "/#batches" },
     { name: "Reviews", href: "/#reviews" },
+    { name: "About", href: "/about" },
+    { name: "FAQ", href: "/#faq" },
   ],
 
   footerLinks: {
@@ -41,9 +50,11 @@ export const siteConfig = {
       { name: "Student Reviews", href: "/#reviews" },
     ],
     support: [
+      { name: "About Us", href: "/about" },
       { name: "Contact Us", href: "/contact" },
       { name: "Help Center", href: "/contact" }, // Can separate later
       { name: "Join Waitlist", href: "/#early-access" },
+      { name: "FAQ", href: "/#faq" },
     ],
     legal: [
       { name: "Privacy Policy", href: "/privacy" },
