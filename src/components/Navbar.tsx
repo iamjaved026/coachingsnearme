@@ -80,7 +80,7 @@ export default function Navbar({ theme = "light" }: { theme?: "light" | "dark" }
           {/* Right CTAs */}
           <div className="hidden lg:flex items-center gap-2.5">
             <a
-              href="/#early-access"
+              href="/early-access"
               className="group relative px-4.5 py-2.5 text-[13px] font-semibold text-white rounded-xl bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 shadow-sm hover:shadow-md hover:shadow-primary-500/20 transition-all duration-300 transform hover:-translate-y-px"
             >
               <span className="relative z-10 flex items-center gap-1.5">
@@ -139,7 +139,7 @@ export default function Navbar({ theme = "light" }: { theme?: "light" | "dark" }
                 ))}
                 <div className="mt-4 pt-4 border-t border-gray-100 flex flex-col gap-2.5">
                   <a
-                    href="/#early-access"
+                    href="/early-access"
                     onClick={() => setMobileOpen(false)}
                     className="px-4 py-3 text-center text-sm font-semibold text-white bg-gradient-to-r from-primary-500 to-primary-600 rounded-xl shadow-md"
                   >

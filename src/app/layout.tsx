@@ -64,6 +64,14 @@ export default function RootLayout({
           siteConfig.socials.github
         ]
       },
+      featureList: [
+        "Hyperlocal Coaching Discovery",
+        "Verified Anonymous Student Reviews",
+        "Interactive Batch Timetable & Attendance",
+        "Homework & Study Notes Distribution",
+        "Institute Listing & Directory",
+        "Early Access Beta Registration"
+      ],
       provider: {
         "@type": "Organization",
         name: siteConfig.name,
@@ -77,6 +85,24 @@ export default function RootLayout({
           areaServed: siteConfig.address.country,
         },
       },
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Home",
+          item: siteConfig.url,
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Early Access",
+          item: `${siteConfig.url}/early-access`,
+        },
+      ],
     },
     {
       "@context": "https://schema.org",

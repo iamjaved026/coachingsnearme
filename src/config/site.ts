@@ -39,6 +39,7 @@ export const siteConfig = {
     { name: "Batch Workspace", href: "/#batches" },
     { name: "Reviews", href: "/#reviews" },
     { name: "About", href: "/about" },
+    { name: "Early Access", href: "/early-access" },
     { name: "FAQ", href: "/#faq" },
   ],
 
@@ -48,18 +49,20 @@ export const siteConfig = {
       { name: "Discover Coachings", href: "/#discover" },
       { name: "Batch Workspace", href: "/#batches" },
       { name: "Student Reviews", href: "/#reviews" },
+      { name: "Early Access Program", href: "/early-access" },
     ],
     support: [
       { name: "About Us", href: "/about" },
-      { name: "Contact Us", href: "/contact" },
-      { name: "Help Center", href: "/contact" }, // Can separate later
-      { name: "Join Waitlist", href: "/#early-access" },
+      { name: "Contact Support", href: "/contact" },
+      { name: "Join Waitlist", href: "/early-access" },
       { name: "FAQ", href: "/#faq" },
     ],
     legal: [
       { name: "Privacy Policy", href: "/privacy" },
       { name: "Terms of Service", href: "/terms" },
-      { name: "Refund Policy", href: "/terms" }, // Pointing to terms for now
+      { name: "Tester Terms & Conditions", href: "/tester-terms" },
+      { name: "Tester Privacy Policy", href: "/tester-privacy" },
+      { name: "Tester NDA Agreement", href: "/tester-nda" },
     ],
   },
 

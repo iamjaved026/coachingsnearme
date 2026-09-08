@@ -69,7 +69,7 @@ export default function Hero() {
               className="flex flex-col sm:flex-row gap-3 justify-center lg:justify-start"
             >
               <a
-                href="#early-access"
+                href="/early-access"
                 className="group relative inline-flex items-center justify-center gap-2.5 px-7 py-3.5 text-[15px] font-semibold text-white bg-gradient-to-r from-primary-500 to-primary-600 rounded-2xl shadow-lg shadow-primary-500/20 hover:shadow-xl hover:shadow-primary-500/25 transition-all duration-300 transform hover:-translate-y-0.5"
               >
                 {siteConfig.cta.primary}

@@ -64,18 +64,19 @@ export default function Reviews() {
           ))}
         </StaggerContainer>
 
-        <AnimatedSection delay={0.3} className="mt-14 flex flex-wrap justify-center gap-6 lg:gap-12">
+        <AnimatedSection delay={0.3} className="mt-14 flex flex-wrap justify-center gap-4 lg:gap-8">
           {[
-            { value: "500+", label: "Active Students" },
-            { value: "50+", label: "Coachings Listed" },
-            { value: "4.8", label: "Average Rating" },
-            { value: "2,000+", label: "Reviews Posted" },
-          ].map((stat) => (
-            <div key={stat.label} className="text-center">
-              <motion.p initial={{ opacity: 0, scale: 0.5 }} whileInView={{ opacity: 1, scale: 1 }} viewport={{ once: true }} className="font-display font-bold text-2xl lg:text-3xl text-gradient mb-0.5">
-                {stat.value}
-              </motion.p>
-              <p className="text-[13px] text-text-tertiary">{stat.label}</p>
+            { icon: "🌱", title: "Early Pilot Phase", desc: "Currently in private testing in Teghra, Bihar" },
+            { icon: "🛡️", title: "100% Student-First", desc: "Unbiased, authentic feedback with zero paid listings" },
+            { icon: "📍", title: "Hyperlocal Discovery", desc: "Walking-distance coaching & batch search" },
+            { icon: "⚡", title: "Expanding Waitlist", desc: "Prioritizing rollout based on local student demand" },
+          ].map((item) => (
+            <div key={item.title} className="flex items-center gap-3 px-4 py-3 rounded-2xl bg-white border border-gray-100 shadow-sm max-w-[280px]">
+              <span className="text-2xl">{item.icon}</span>
+              <div className="text-left">
+                <p className="font-semibold text-[13px] text-text-primary leading-tight">{item.title}</p>
+                <p className="text-[11px] text-text-tertiary mt-0.5 leading-snug">{item.desc}</p>
+              </div>
             </div>
           ))}
         </AnimatedSection>
