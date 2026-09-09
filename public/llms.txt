@@ -1,0 +1,68 @@
+# CoachingsNearMe
+
+> The Future Infrastructure for Coaching Students in India. Discover nearby coaching institutes, explore batch workspaces, track homework and attendance, and read verified student reviews.
+
+## Overview
+
+CoachingsNearMe (https://coachingsnearme.in) is a student-first educational infrastructure and discovery platform built to organize the coaching ecosystem in India. It enables students and parents to find genuine tuition and coaching centers within walking distance, compare verified anonymous student feedback, and manage daily academic schedules, notes, announcements, and homework in one cohesive platform.
+
+- **Website:** https://coachingsnearme.in
+- **Tagline:** The Future Infrastructure for Coaching Students
+- **Founder:** Javed Hussain (@iamjaved026)
+- **Support Contact:** support@coachingsnearme.in / +91 6207069013
+- **Primary Launch Area:** Teghra, Begusarai District, Bihar (PIN 851133)
+
+---
+
+## Core Capabilities
+
+### 1. Hyperlocal Coaching Discovery
+- Real-time radius search for coaching centers, tutors, and competitive exam institutes near the student's location.
+- Detailed institute profiles with verified faculty lists, batch timings, subjects taught, and transparent fee structures.
+- Distance calculations designed for Tier 2/3 towns and rural education hubs.
+
+### 2. Batch Workspace & Daily Organization
+- Replaces chaotic WhatsApp groups with a dedicated, focused academic workspace.
+- Centralized homework assignments, downloadable lecture notes, test schedules, and important batch announcements.
+- Attendance tracking and automated timetable alerts.
+
+### 3. Verified Anonymous Student Reviews
+- Students can post authentic, honest feedback about coaching faculty, syllabus pace, and infrastructure.
+- 100% public anonymity protects students from retaliation, while backend verification ensures zero fake bot reviews or competitor sabotage.
+
+### 4. Early Access & Closed Beta Program
+- City-by-city rollout prioritizing high-demand pincodes.
+- Easy online application form for students, teachers, parents, and coaching directors to request early platform access.
+
+---
+
+## Key URLs & Documentation
+
+- [Homepage](https://coachingsnearme.in): Platform overview, features, student testimonials, and quick early access intake.
+- [Early Access Registration](https://coachingsnearme.in/early-access): Dedicated multi-role application page for students, parents, tutors, and coaching institutes.
+- [About Us](https://coachingsnearme.in/about): Mission, vision, and background of founder Javed Hussain.
+- [Contact Support](https://coachingsnearme.in/contact): Support email, official phone number, and physical office in Teghra, Bihar.
+- [Privacy Policy](https://coachingsnearme.in/privacy): Full DPDP Act 2023 & IT Act 2000 compliance, data handling, and Grievance Officer details.
+- [Terms of Service](https://coachingsnearme.in/terms): Platform usage rules, review integrity policies, and legal jurisdiction (Begusarai / Patna, Bihar).
+- [Tester Terms & Conditions](https://coachingsnearme.in/tester-terms): Closed testing agreement for beta testers evaluating pre-release builds.
+- [Tester Privacy Policy](https://coachingsnearme.in/tester-privacy): Diagnostic telemetry, crash reports, and test device specs handling.
+- [Tester Non-Disclosure Agreement](https://coachingsnearme.in/tester-nda): Confidentiality terms protecting unreleased software, APKs, and UI designs.
+
+---
+
+## Target Audiences
+
+- **Students & Aspirants:** Preparing for JEE (Main & Advanced), NEET UG, UPSC / BPSC, SSC / Banking, State Boards (BSEB / CBSE Classes 9–12), Foundation (Classes 6–8), and Coding.
+- **Parents & Guardians:** Seeking verified nearby tuition, safety assurance, attendance monitoring, and fee clarity.
+- **Coaching Institute Directors:** Looking for genuine student discovery, professional directory listing, batch attendance tools, and automated announcement channels.
+- **Independent Educators & Tutors:** Seeking local tutoring discovery and clean student communication.
+
+---
+
+## Technical Stack & Security
+
+- **Web Frontend:** Next.js (App Router, Turbopack), React 19, Tailwind CSS, Framer Motion.
+- **Mobile Applications:** Flutter (Dart) for Android native performance.
+- **Backend Services:** Fastify (Node.js/TypeScript), Supabase PostgreSQL, TLS 1.3 encryption.
+- **Security & Anti-Abuse:** In-memory rate limiting, IP quarantine for vulnerability scans, Formspree encrypted intake.
+- **Compliance:** Digital Personal Data Protection Act, 2023 (DPDP Act, India).

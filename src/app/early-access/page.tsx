@@ -74,12 +74,7 @@ export default function EarlyAccessPage() {
   const [form, setForm] = useState<FormState>(initialForm);
   const [isPending, startTransition] = useTransition();
   const [errorMsg, setErrorMsg] = useState("");
-  const [result, setResult] = useState<{
-    registrationId: string;
-    priorityGroup: string;
-    isImmediateZone: boolean;
-  } | null>(null);
-  const [copied, setCopied] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   const isImmediatePincode =
     form.pincode.startsWith("851") || form.pincode === "851133";
@@ -116,13 +111,6 @@ export default function EarlyAccessPage() {
       return;
     }
 
-    const isImmediateZone = cleanPincode.startsWith("851") || cleanPincode === "851133";
-    const priorityGroup = isImmediateZone
-      ? "Wave 1 - Immediate Launch Area (Teghra / Begusarai)"
-      : "Wave 2 - Priority State Rollout";
-    const randomSuffix = Math.floor(1000 + Math.random() * 9000);
-    const registrationId = `CNM-EA-${cleanPincode}-${randomSuffix}`;
-
     startTransition(async () => {
       try {
         const res = await fetch("https://formspree.io/f/mjgzywdj", {
@@ -132,8 +120,6 @@ export default function EarlyAccessPage() {
             Accept: "application/json",
           },
           body: JSON.stringify({
-            registrationId,
-            priorityGroup,
             role: form.role,
             name: form.name.trim(),
             email: form.email.trim(),
@@ -151,14 +137,10 @@ export default function EarlyAccessPage() {
         });
 
         if (res.ok) {
-          setResult({
-            registrationId,
-            priorityGroup,
-            isImmediateZone,
-          });
+          setIsSubmitted(true);
         } else {
           const data = await res.json().catch(() => ({}));
-          setErrorMsg(data.error || "Failed to submit. Please check your connection and retry.");
+          setErrorMsg(data.error || "Failed to submit form. Please check your details and try again.");
         }
       } catch (err) {
         console.error("Submission error:", err);
@@ -167,16 +149,9 @@ export default function EarlyAccessPage() {
     });
   };
 
-  const copyToClipboard = () => {
-    if (!result) return;
-    navigator.clipboard.writeText(result.registrationId);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2500);
-  };
-
   const shareOnWhatsApp = () => {
     const text = encodeURIComponent(
-      `Hey! I just registered for Early Access on CoachingsNearMe.in (${siteConfig.tagline}) with Priority Pass: ${result?.registrationId}. Check it out: https://coachingsnearme.in/early-access`
+      `Hey! I just requested early access on CoachingsNearMe.in (${siteConfig.tagline}). Discover nearby coachings, batches, and verified reviews! Check it out: https://coachingsnearme.in/early-access`
     );
     window.open(`https://wa.me/?text=${text}`, "_blank");
   };
@@ -208,8 +183,8 @@ export default function EarlyAccessPage() {
           },
           {
             "@type": "HowToStep",
-            name: "Receive Priority Pass",
-            text: "Get your immediate CNM-EA registration ID and launch wave status.",
+            name: "Get Confirmation",
+            text: "Your request is accepted and our team connects directly via WhatsApp or email.",
           },
         ],
       },
@@ -293,7 +268,7 @@ export default function EarlyAccessPage() {
           </div>
 
           <AnimatePresence mode="wait">
-            {!result ? (
+            {!isSubmitted ? (
               <motion.div
                 key="form-container"
                 initial={{ opacity: 0, y: 20 }}
@@ -301,7 +276,7 @@ export default function EarlyAccessPage() {
                 exit={{ opacity: 0, y: -20 }}
                 className="bg-white/5 border border-white/10 rounded-3xl p-6 sm:p-10 shadow-2xl backdrop-blur-xl"
               >
-                <form onSubmit={handleSubmit} className="space-y-8">
+                <form onSubmit={handleSubmit} className="space-y-8" autoComplete="on">
                   {/* Role Selection */}
                   <div>
                     <label className="block text-xs font-semibold uppercase tracking-wider text-gray-400 mb-3">
@@ -340,10 +315,13 @@ export default function EarlyAccessPage() {
                   {/* Core Identity Grid */}
                   <div className="grid sm:grid-cols-2 gap-4">
                     <div>
-                      <label className="block text-xs font-medium text-gray-300 mb-1.5">
+                      <label htmlFor="full-name" className="block text-xs font-medium text-gray-300 mb-1.5">
                         Full Name <span className="text-rose-400">*</span>
                       </label>
                       <input
+                        id="full-name"
+                        name="name"
+                        autoComplete="name"
                         type="text"
                         required
                         value={form.name}
@@ -360,10 +338,13 @@ export default function EarlyAccessPage() {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-medium text-gray-300 mb-1.5">
+                      <label htmlFor="email-address" className="block text-xs font-medium text-gray-300 mb-1.5">
                         Email Address <span className="text-rose-400">*</span>
                       </label>
                       <input
+                        id="email-address"
+                        name="email"
+                        autoComplete="email"
                         type="email"
                         required
                         value={form.email}
@@ -376,7 +357,7 @@ export default function EarlyAccessPage() {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-medium text-gray-300 mb-1.5">
+                      <label htmlFor="phone-number" className="block text-xs font-medium text-gray-300 mb-1.5">
                         WhatsApp / Mobile Number{" "}
                         <span className="text-rose-400">*</span>
                       </label>
@@ -385,6 +366,10 @@ export default function EarlyAccessPage() {
                           +91
                         </span>
                         <input
+                          id="phone-number"
+                          name="tel"
+                          autoComplete="tel"
+                          inputMode="tel"
                           type="tel"
                           required
                           maxLength={10}
@@ -402,10 +387,15 @@ export default function EarlyAccessPage() {
                     </div>
 
                     <div>
-                      <label className="block text-xs font-medium text-gray-300 mb-1.5">
+                      <label htmlFor="postal-code" className="block text-xs font-medium text-gray-300 mb-1.5">
                         Postal Pincode <span className="text-rose-400">*</span>
                       </label>
                       <input
+                        id="postal-code"
+                        name="postal-code"
+                        autoComplete="postal-code"
+                        inputMode="numeric"
+                        pattern="[0-9]{6}"
                         type="text"
                         required
                         maxLength={6}
@@ -446,11 +436,14 @@ export default function EarlyAccessPage() {
 
                   {/* Locality / Full Address (Optional) */}
                   <div>
-                    <label className="block text-xs font-medium text-gray-300 mb-1.5">
+                    <label htmlFor="street-address" className="block text-xs font-medium text-gray-300 mb-1.5">
                       Locality / Street / Landmark{" "}
                       <span className="text-gray-500 font-normal">(Optional)</span>
                     </label>
                     <input
+                      id="street-address"
+                      name="street-address"
+                      autoComplete="street-address"
                       type="text"
                       value={form.address}
                       onChange={(e) =>
@@ -467,11 +460,13 @@ export default function EarlyAccessPage() {
                     {form.role === "student" && (
                       <div className="grid sm:grid-cols-2 gap-4">
                         <div>
-                          <label className="block text-xs font-medium text-gray-300 mb-1.5">
+                          <label htmlFor="target-exam" className="block text-xs font-medium text-gray-300 mb-1.5">
                             Target Exam / Academic Goal{" "}
                             <span className="text-gray-500 font-normal">(Optional)</span>
                           </label>
                           <select
+                            id="target-exam"
+                            name="target-exam"
                             value={form.targetExam}
                             onChange={(e) =>
                               setForm({ ...form, targetExam: e.target.value })
@@ -489,11 +484,14 @@ export default function EarlyAccessPage() {
                           </select>
                         </div>
                         <div>
-                          <label className="block text-xs font-medium text-gray-300 mb-1.5">
+                          <label htmlFor="current-coaching-institute" className="block text-xs font-medium text-gray-300 mb-1.5">
                             Current Coaching Institute{" "}
                             <span className="text-gray-500 font-normal">(Optional)</span>
                           </label>
                           <input
+                            id="current-coaching-institute"
+                            name="current-coaching-institute"
+                            autoComplete="off"
                             type="text"
                             value={form.coachingName}
                             onChange={(e) =>
@@ -510,11 +508,14 @@ export default function EarlyAccessPage() {
                     {form.role === "coaching" && (
                       <div className="grid sm:grid-cols-2 gap-4">
                         <div>
-                          <label className="block text-xs font-medium text-gray-300 mb-1.5">
+                          <label htmlFor="coaching-institute-name" className="block text-xs font-medium text-gray-300 mb-1.5">
                             Institute / Coaching Center Name{" "}
                             <span className="text-gray-500 font-normal">(Optional)</span>
                           </label>
                           <input
+                            id="coaching-institute-name"
+                            name="coaching-institute-name"
+                            autoComplete="off"
                             type="text"
                             value={form.coachingName}
                             onChange={(e) =>
@@ -525,11 +526,13 @@ export default function EarlyAccessPage() {
                           />
                         </div>
                         <div>
-                          <label className="block text-xs font-medium text-gray-300 mb-1.5">
+                          <label htmlFor="student-count" className="block text-xs font-medium text-gray-300 mb-1.5">
                             Active Students Enrolled{" "}
                             <span className="text-gray-500 font-normal">(Optional)</span>
                           </label>
                           <select
+                            id="student-count"
+                            name="student-count"
                             value={form.studentCount}
                             onChange={(e) =>
                               setForm({ ...form, studentCount: e.target.value })
@@ -549,11 +552,14 @@ export default function EarlyAccessPage() {
                     {form.role === "teacher" && (
                       <div className="grid sm:grid-cols-2 gap-4">
                         <div>
-                          <label className="block text-xs font-medium text-gray-300 mb-1.5">
+                          <label htmlFor="subjects-taught" className="block text-xs font-medium text-gray-300 mb-1.5">
                             Subjects Taught{" "}
                             <span className="text-gray-500 font-normal">(Optional)</span>
                           </label>
                           <input
+                            id="subjects-taught"
+                            name="subjects-taught"
+                            autoComplete="off"
                             type="text"
                             value={form.subjectOrSpecialty}
                             onChange={(e) =>
@@ -564,11 +570,14 @@ export default function EarlyAccessPage() {
                           />
                         </div>
                         <div>
-                          <label className="block text-xs font-medium text-gray-300 mb-1.5">
+                          <label htmlFor="affiliated-coaching" className="block text-xs font-medium text-gray-300 mb-1.5">
                             Affiliated Coaching / Private{" "}
                             <span className="text-gray-500 font-normal">(Optional)</span>
                           </label>
                           <input
+                            id="affiliated-coaching"
+                            name="affiliated-coaching"
+                            autoComplete="off"
                             type="text"
                             value={form.coachingName}
                             onChange={(e) =>
@@ -584,11 +593,14 @@ export default function EarlyAccessPage() {
                     {/* Parent specifics */}
                     {form.role === "parent" && (
                       <div>
-                        <label className="block text-xs font-medium text-gray-300 mb-1.5">
+                        <label htmlFor="child-goal" className="block text-xs font-medium text-gray-300 mb-1.5">
                           Child&apos;s Current Class / Goal{" "}
                           <span className="text-gray-500 font-normal">(Optional)</span>
                         </label>
                         <input
+                          id="child-goal"
+                          name="child-goal"
+                          autoComplete="off"
                           type="text"
                           value={form.targetExam}
                           onChange={(e) =>
@@ -637,13 +649,16 @@ export default function EarlyAccessPage() {
 
                     {/* Open-ended feedback */}
                     <div>
-                      <label className="block text-xs font-medium text-gray-300 mb-1.5">
+                      <label htmlFor="user-notes" className="block text-xs font-medium text-gray-300 mb-1.5">
                         Tell us more{" "}
                         <span className="text-gray-500 font-normal">
                           (Optional — suggestions, specific coachings you want onboarded, or queries)
                         </span>
                       </label>
                       <textarea
+                        id="user-notes"
+                        name="notes"
+                        autoComplete="off"
                         rows={3}
                         value={form.notes}
                         onChange={(e) =>
@@ -679,11 +694,11 @@ export default function EarlyAccessPage() {
                           <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                           <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8H4z" />
                         </svg>
-                        Securing Your Priority Spot...
+                        Submitting Request...
                       </>
                     ) : (
                       <>
-                        Claim Early Access Pass
+                        Submit Early Access Request
                         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                           <polyline points="9 18 15 12 9 6" />
                         </svg>
@@ -716,38 +731,48 @@ export default function EarlyAccessPage() {
                   🎉
                 </div>
 
-                <span className="inline-block px-3 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-2">
-                  Registration Confirmed
+                <span className="inline-block px-3.5 py-1 rounded-full bg-emerald-500/10 text-emerald-400 text-xs font-semibold uppercase tracking-wider mb-2">
+                  Request Accepted
                 </span>
 
                 <h2 className="font-display font-bold text-2xl sm:text-3xl text-white mb-2">
-                  Welcome to CoachingsNearMe!
+                  Your Early Access Request Has Been Accepted!
                 </h2>
 
-                <p className="text-gray-400 text-sm mb-6 leading-relaxed">
-                  You are officially registered for early access. We are preparing
-                  onboarding invitations and will notify you directly via WhatsApp &amp; Email.
+                <p className="text-gray-300 text-sm mb-6 leading-relaxed">
+                  Thank you for joining us early! We are actively rolling out access in waves across Teghra and nearby areas to ensure the best experience. Our team will reach out to you directly via WhatsApp or Email soon.
                 </p>
 
-                {/* Priority Pass Badge */}
-                <div className="bg-black/30 border border-white/10 rounded-2xl p-5 mb-6 text-left">
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="text-xs uppercase tracking-wider text-gray-400">
-                      Your Priority Pass ID
-                    </span>
-                    <button
-                      onClick={copyToClipboard}
-                      className="text-xs text-primary-400 hover:text-primary-300 transition-colors flex items-center gap-1"
-                    >
-                      {copied ? "✓ Copied" : "Copy ID"}
-                    </button>
+                {/* Friendly Info Card with Contact */}
+                <div className="bg-black/30 border border-white/10 rounded-2xl p-5 mb-6 text-left space-y-4">
+                  <div className="flex items-start gap-3">
+                    <span className="text-xl flex-shrink-0">🚀</span>
+                    <div>
+                      <h4 className="text-white font-semibold text-xs sm:text-sm">Gradual Rollout in Progress</h4>
+                      <p className="text-xs text-gray-400 mt-1 leading-relaxed">
+                        We are verifying institutes and onboarding batches step by step. You&apos;ll be notified the moment your area and target exam workspace are fully unlocked!
+                      </p>
+                    </div>
                   </div>
-                  <div className="font-mono text-xl sm:text-2xl font-bold text-white tracking-wider text-gradient mb-3">
-                    {result.registrationId}
-                  </div>
-                  <div className="text-xs text-gray-300 flex items-center gap-1.5 pt-2 border-t border-white/6">
-                    <span className="w-2 h-2 rounded-full bg-emerald-400" />
-                    <span>{result.priorityGroup}</span>
+
+                  <div className="pt-3 border-t border-white/8">
+                    <p className="text-xs text-gray-300 font-medium mb-2">Have any questions or need direct assistance?</p>
+                    <div className="flex flex-col sm:flex-row gap-3 text-xs">
+                      <a
+                        href={`mailto:${siteConfig.support.email}`}
+                        className="inline-flex items-center gap-1.5 text-primary-400 hover:text-primary-300 transition-colors"
+                      >
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                        {siteConfig.support.email}
+                      </a>
+                      <a
+                        href={`tel:${siteConfig.support.phone}`}
+                        className="inline-flex items-center gap-1.5 text-primary-400 hover:text-primary-300 transition-colors"
+                      >
+                        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                        {siteConfig.support.phone}
+                      </a>
+                    </div>
                   </div>
                 </div>
 
@@ -760,7 +785,7 @@ export default function EarlyAccessPage() {
                     <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24">
                       <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z" />
                     </svg>
-                    Share with Classmates / Teachers
+                    Share with Friends &amp; Classmates
                   </button>
 
                   <a

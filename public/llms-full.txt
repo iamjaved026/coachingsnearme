@@ -1,0 +1,90 @@
+# CoachingsNearMe — Full Platform Reference (llms-full.txt)
+
+> Comprehensive architectural, functional, and legal reference for CoachingsNearMe (https://coachingsnearme.in). Prepared for Large Language Models, AI assistants, and automated crawlers.
+
+---
+
+## 1. Executive Summary
+
+- **Platform Name:** CoachingsNearMe
+- **Domain:** https://coachingsnearme.in
+- **Entity Type:** Educational Technology Infrastructure Platform
+- **Founding Headquarters:** Teghra, Begusarai District, Bihar 851133, India
+- **Founder & Architect:** Javed Hussain (@iamjaved026)
+- **Primary Mission:** Organizing and modernizing the offline coaching and tutoring sector across Tier 2, Tier 3 towns, and cities in India through verified discovery, private reviews, and structured digital batch workspaces.
+
+---
+
+## 2. Core Modules & Feature Specifications
+
+### Module A: Hyperlocal Discovery Engine
+- **Geographic Proximity:** Searches institutes based on walking/cycling distance using GPS and 6-digit postal pincodes.
+- **Academic Filters:** Filters by examination type:
+  - Engineering Entrance: IIT-JEE Main, JEE Advanced
+  - Medical Entrance: NEET-UG
+  - Civil Services & State PSC: UPSC CSE, BPSC (Bihar Public Service Commission)
+  - Government Exams: SSC CGL, CHSL, Banking (IBPS, SBI), Railways (RRB)
+  - Secondary & Higher Secondary Education: CBSE, ICSE, BSEB (Bihar School Examination Board) Classes 9th, 10th, 11th, 12th
+  - Middle School Foundation: Classes 6th, 7th, 8th
+  - Technical & Vocational: Computer programming, web development, spoken English
+- **Transparency Metrics:** Detailed course curriculum, fee structure with installment breakdowns, batch capacities, teacher credentials, and batch shift timings (morning, evening).
+
+### Module B: The Batch Workspace (Anti-WhatsApp Infrastructure)
+- **Problem Addressed:** Currently, coaching institutes run operations through unstructured WhatsApp groups where homework gets lost in chit-chat, student phone numbers are exposed to strangers, and announcements get buried.
+- **Solution:** A clean, purpose-built batch workspace where:
+  - Teachers publish official homework with submission deadlines.
+  - Digital PDF study notes, assignment sheets, and test keys are organized chronologically.
+  - Urgent alerts (rain cancellations, timetable shifts, exam results) are pinned without chat spam.
+  - Student privacy is preserved: classmates interact without exposing personal phone numbers.
+
+### Module C: Verified Anonymous Student Reviews
+- **Anti-Retaliation Protection:** Reviews are presented with complete public anonymity so students can speak honestly without fear of being singled out by teachers or coaching owners.
+- **Integrity Gating:** Internal authentication requires a verified phone number OTP to prevent bot spam, automated rating bombing, or paid competitor sabotage.
+- **Zero Paid Promotions:** Institutes cannot pay to hide negative reviews or artificially boost ratings.
+
+### Module D: Early Access Program
+- **Rollout Mechanism:** Phased launch wave strategy. High-density signups from specific pincodes (starting with 851133 - Teghra, Bihar) trigger prioritized local onboarding.
+- **Registration Form:** Allows applicants to specify their persona (Student, Coaching Director, Independent Teacher, or Parent), target exams, subjects, and specific coachings they want onboarded.
+
+---
+
+## 3. Directory of Canonical URLs
+
+| Route | Purpose | Audience |
+| :--- | :--- | :--- |
+| `https://coachingsnearme.in/` | Landing page, platform highlights, pilot feedback | Public |
+| `https://coachingsnearme.in/early-access` | Multi-persona early access registration form | Prospective Users |
+| `https://coachingsnearme.in/about` | Story, mission, and founder vision | Public |
+| `https://coachingsnearme.in/contact` | Official communication desk, phone, email, and office address | All |
+| `https://coachingsnearme.in/privacy` | DPDP Act 2023 & IT Act 2000 compliant privacy policy | All Users |
+| `https://coachingsnearme.in/terms` | Terms of service, review conduct, institute obligations | All Users |
+| `https://coachingsnearme.in/tester-terms` | Terms & conditions for closed beta testers | Beta Testers |
+| `https://coachingsnearme.in/tester-privacy` | Diagnostic telemetry & crash logs policy | Beta Testers |
+| `https://coachingsnearme.in/tester-nda` | Non-disclosure agreement for unreleased software | Beta Testers |
+
+---
+
+## 4. Frequently Asked Questions (FAQ)
+
+### Q1: Is CoachingsNearMe free for students?
+Yes. Core coaching discovery, search, reading verified reviews, and basic student batch workspace features are 100% free for students and parents.
+
+### Q2: How are coaching institutes listed?
+Institutes can claim or register their profile during the early access program or directly via our verification team. All faculty qualifications, batch schedules, and fee details are reviewed before receiving a verified badge.
+
+### Q3: How does CoachingsNearMe handle user privacy under Indian law?
+CoachingsNearMe strictly adheres to the Digital Personal Data Protection Act, 2023 (DPDP Act) and the Information Technology Act, 2000. User personal contact numbers are never sold or rented to third-party telemarketers or loan agents. A designated Grievance Officer handles requests within statutory timelines.
+
+---
+
+## 5. Contact & Institutional Details
+
+- **Company / Platform:** CoachingsNearMe
+- **Founder:** Javed Hussain
+- **Email:** support@coachingsnearme.in
+- **Phone:** +91 6207069013
+- **Registered Address:** Teghra Main Road, Teghra, Begusarai District, Bihar - 851133, India
+- **Socials:**
+  - Twitter/X: https://x.com/iamjaved026
+  - GitHub: https://github.com/iamjaved026
+  - LinkedIn: https://linkedin.com/in/iamjaved026

@@ -2,7 +2,6 @@
 
 import Link from "next/link";
 import { motion } from "framer-motion";
-import { siteConfig } from "@/config/site";
 
 export default function NotFound() {
   return (
@@ -19,41 +18,48 @@ export default function NotFound() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="flex flex-col items-center"
         >
-          {/* Logo element floating */}
+          {/* Real Brand Logo Icon */}
           <motion.div
-            animate={{ y: [0, -10, 0] }}
+            animate={{ y: [0, -8, 0] }}
             transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
-            className="w-16 h-16 rounded-2xl bg-gradient-to-br from-primary-500 to-primary-700 flex items-center justify-center shadow-lg shadow-primary-500/20 mb-8"
+            className="w-20 h-20 rounded-2xl bg-white p-2 flex items-center justify-center shadow-xl shadow-primary-500/20 mb-8 border border-white/20 overflow-hidden"
           >
-            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" className="text-white">
-              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7z" fill="currentColor" opacity="0.9" />
-              <circle cx="12" cy="9" r="3" fill="white" />
-            </svg>
+            <img
+              src="/icon-192x192.png"
+              alt="CoachingsNearMe Logo"
+              className="w-full h-full object-cover rounded-xl"
+            />
           </motion.div>
 
           <span className="inline-block px-3.5 py-1.5 rounded-full bg-white/5 border border-white/10 text-primary-300 text-xs font-semibold tracking-wide uppercase mb-6">
-            404 Not Found
+            404 Page Not Found
           </span>
           
-          <h1 className="font-display font-bold text-5xl sm:text-6xl text-white tracking-tight mb-6">
+          <h1 className="font-display font-bold text-4xl sm:text-5xl lg:text-6xl text-white tracking-tight mb-5">
             Looks like this page <span className="bg-gradient-to-r from-primary-400 to-cyan-400 bg-clip-text text-transparent">drifted away.</span>
           </h1>
           
-          <p className="text-lg text-gray-400 max-w-xl mx-auto mb-10 leading-relaxed">
-            The future of coaching is still loading here. The page you&apos;re looking for might have been moved, deleted, or possibly never existed.
+          <p className="text-base sm:text-lg text-gray-400 max-w-xl mx-auto mb-9 leading-relaxed">
+            The future of coaching discovery is still loading here. The page you&apos;re looking for might have been moved, renamed, or is currently in development.
           </p>
 
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-3.5 w-full sm:w-auto">
             <Link 
               href="/"
-              className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-primary-600 text-white font-medium hover:bg-primary-700 transition-colors shadow-lg shadow-primary-600/20 flex items-center justify-center gap-2"
+              className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-primary-600 text-white font-semibold hover:bg-primary-700 transition-all shadow-lg shadow-primary-600/25 flex items-center justify-center gap-2 text-sm"
             >
               Return Home
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+            </Link>
+            <Link 
+              href="/early-access"
+              className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-white/10 text-white font-semibold hover:bg-white/15 transition-all border border-white/15 flex items-center justify-center text-sm"
+            >
+              Join Early Access
             </Link>
             <Link 
               href="/contact"
-              className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-white/5 text-white font-medium hover:bg-white/10 transition-colors border border-white/10 flex items-center justify-center"
+              className="w-full sm:w-auto px-8 py-3.5 rounded-full bg-transparent text-gray-400 font-medium hover:text-white transition-colors flex items-center justify-center text-sm"
             >
               Contact Support
             </Link>

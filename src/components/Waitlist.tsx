@@ -14,7 +14,6 @@ export default function Waitlist() {
   const [phone, setPhone] = useState("");
   const [pincode, setPincode] = useState("");
   const [submitted, setSubmitted] = useState(false);
-  const [registrationId, setRegistrationId] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
 
@@ -33,8 +32,6 @@ export default function Waitlist() {
     const priorityGroup = isImmediateZone
       ? "Wave 1 - Immediate Launch Area (Teghra / Begusarai)"
       : "Wave 2 - Priority State Rollout";
-    const randomSuffix = Math.floor(1000 + Math.random() * 9000);
-    const genId = `CNM-EA-${cleanPincode}-${randomSuffix}`;
 
     setIsSubmitting(true);
     try {
@@ -45,7 +42,6 @@ export default function Waitlist() {
           Accept: "application/json",
         },
         body: JSON.stringify({
-          registrationId: genId,
           priorityGroup,
           role,
           name: name.trim(),
@@ -59,7 +55,6 @@ export default function Waitlist() {
 
       if (response.ok) {
         setSubmitted(true);
-        setRegistrationId(genId);
       } else {
         const data = await response.json().catch(() => ({}));
         setError(data.error || "Submission failed. Please try again.");
@@ -91,7 +86,7 @@ export default function Waitlist() {
             </span>
           </h2>
           <p className="text-base text-gray-400 max-w-lg mx-auto mb-8 leading-relaxed">
-            Rolling out city by city starting with {siteConfig.launchCity}. Request your priority pass and help us prioritize your locality.
+            Rolling out city by city starting with {siteConfig.launchCity}. Request your early access and help us prioritize your locality.
           </p>
         </AnimatedSection>
 
@@ -121,11 +116,14 @@ export default function Waitlist() {
 
           {!submitted ? (
             <div className="max-w-xl mx-auto bg-white/5 border border-white/10 rounded-3xl p-6 sm:p-8 backdrop-blur-md shadow-2xl">
-              <form onSubmit={handleSubmit} className="flex flex-col gap-3.5 text-left">
+              <form onSubmit={handleSubmit} className="flex flex-col gap-3.5 text-left" autoComplete="on">
                 <div className="grid sm:grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-xs font-medium text-gray-300 mb-1">Your Name</label>
+                    <label htmlFor="wl-name" className="block text-xs font-medium text-gray-300 mb-1">Your Name</label>
                     <input
+                      id="wl-name"
+                      name="name"
+                      autoComplete="name"
                       type="text"
                       value={name}
                       onChange={(e) => setName(e.target.value)}
@@ -135,8 +133,12 @@ export default function Waitlist() {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-gray-300 mb-1">Mobile / WhatsApp</label>
+                    <label htmlFor="wl-phone" className="block text-xs font-medium text-gray-300 mb-1">Mobile / WhatsApp</label>
                     <input
+                      id="wl-phone"
+                      name="tel"
+                      autoComplete="tel"
+                      inputMode="tel"
                       type="tel"
                       value={phone}
                       onChange={(e) => setPhone(e.target.value.replace(/\D/g, ""))}
@@ -150,8 +152,11 @@ export default function Waitlist() {
 
                 <div className="grid sm:grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-xs font-medium text-gray-300 mb-1">Email Address</label>
+                    <label htmlFor="wl-email" className="block text-xs font-medium text-gray-300 mb-1">Email Address</label>
                     <input
+                      id="wl-email"
+                      name="email"
+                      autoComplete="email"
                       type="email"
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
@@ -161,8 +166,13 @@ export default function Waitlist() {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-gray-300 mb-1">Pincode</label>
+                    <label htmlFor="wl-pincode" className="block text-xs font-medium text-gray-300 mb-1">Pincode</label>
                     <input
+                      id="wl-pincode"
+                      name="postal-code"
+                      autoComplete="postal-code"
+                      inputMode="numeric"
+                      pattern="[0-9]{6}"
                       type="text"
                       value={pincode}
                       onChange={(e) => setPincode(e.target.value.replace(/\D/g, ""))}
@@ -183,7 +193,7 @@ export default function Waitlist() {
                   disabled={isSubmitting}
                   className="w-full mt-2 px-6 py-3.5 bg-gradient-to-r from-primary-500 to-primary-600 hover:from-primary-600 hover:to-primary-700 text-white font-semibold rounded-xl shadow-md shadow-primary-500/20 transition-all duration-300 text-[14px] disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 >
-                  {isSubmitting ? "Generating Priority Pass..." : "Request Priority Access"}
+                  {isSubmitting ? "Submitting Request..." : "Request Early Access"}
                   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
                     <polyline points="9 18 15 12 9 6" />
                   </svg>
@@ -204,15 +214,20 @@ export default function Waitlist() {
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
               animate={{ opacity: 1, scale: 1 }}
-              className="max-w-md mx-auto bg-emerald-500/10 border border-emerald-500/20 rounded-2xl p-6 sm:p-8"
+              className="max-w-md mx-auto bg-emerald-500/10 border border-emerald-500/20 rounded-2xl p-6 sm:p-8 text-center"
             >
               <div className="w-12 h-12 mx-auto bg-emerald-500/20 rounded-xl flex items-center justify-center mb-3 text-2xl">
                 🎉
               </div>
-              <h3 className="font-display font-bold text-lg sm:text-xl text-white mb-1.5">You&apos;re on the priority list!</h3>
-              <p className="text-[13px] text-gray-400 mb-4">
-                Your Priority Pass ID: <span className="font-mono text-emerald-400 font-bold">{registrationId}</span>
+              <h3 className="font-display font-bold text-lg sm:text-xl text-white mb-2">Your request has been accepted!</h3>
+              <p className="text-[13px] text-gray-300 mb-4 leading-relaxed">
+                We are actively rolling out access in waves across Teghra and nearby areas. Our team will reach out to you directly via WhatsApp or Email soon!
               </p>
+              <div className="p-3.5 rounded-xl bg-black/40 border border-white/8 text-xs text-gray-400 mb-4 space-y-1 text-left">
+                <p className="text-gray-300 font-medium">Need immediate assistance or have questions?</p>
+                <p>Email: <a href={`mailto:${siteConfig.support.email}`} className="text-primary-400 underline">{siteConfig.support.email}</a></p>
+                <p>Phone: <a href={`tel:${siteConfig.support.phone}`} className="text-primary-400 underline">{siteConfig.support.phone}</a></p>
+              </div>
               <a
                 href="/early-access"
                 className="inline-block px-4 py-2 rounded-lg bg-white/10 hover:bg-white/15 text-white text-xs font-semibold transition-colors"

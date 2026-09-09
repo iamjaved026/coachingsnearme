@@ -73,7 +73,6 @@ export function constructMetadata({
       shortcut: "/favicon.ico",
       apple: "/apple-icon.png",
     },
-    manifest: "/manifest.webmanifest",
     ...(noIndex && {
       robots: {
         index: false,
