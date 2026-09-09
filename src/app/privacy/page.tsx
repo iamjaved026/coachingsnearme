@@ -162,8 +162,9 @@ export default function PrivacyPage() {
               <p>To deliver our cloud infrastructure securely, we partner with industry-leading infrastructure providers under strict confidentiality agreements:</p>
               <ul className="list-disc pl-5 space-y-2 text-gray-300">
                 <li><strong className="text-white">Supabase / PostgreSQL:</strong> Cloud database and secure identity storage with end-to-end encryption at rest (AES-256).</li>
-                <li><strong className="text-white">Cloudflare:</strong> Edge CDN, DDoS mitigation, and Turnstile anti-bot verification.</li>
+                <li><strong className="text-white">Cloudflare:</strong> Global Edge CDN and high-performance DDoS mitigation.</li>
                 <li><strong className="text-white">Transactional Communications:</strong> Reputed SMS gateway providers (Fast2SMS/Twilio) and transactional email infrastructure (Resend) for OTP and critical alerts.</li>
+                <li><strong className="text-white">Formspree:</strong> Encrypted early access waitlist and application dispatch handling.</li>
               </ul>
             </section>
 

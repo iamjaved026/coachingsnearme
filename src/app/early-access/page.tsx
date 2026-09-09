@@ -3,7 +3,6 @@
 import { useState, useTransition } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import TurnstileWidget from "@/components/TurnstileWidget";
 import { siteConfig } from "@/config/site";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -73,7 +72,6 @@ const parentFeatureOptions = [
 
 export default function EarlyAccessPage() {
   const [form, setForm] = useState<FormState>(initialForm);
-  const [turnstileToken, setTurnstileToken] = useState("");
   const [isPending, startTransition] = useTransition();
   const [errorMsg, setErrorMsg] = useState("");
   const [result, setResult] = useState<{
@@ -112,34 +110,56 @@ export default function EarlyAccessPage() {
       setErrorMsg("Please enter a valid 10-digit Indian mobile number.");
       return;
     }
-    if (!/^\d{6}$/.test(form.pincode.trim())) {
+    const cleanPincode = form.pincode.trim();
+    if (!/^\d{6}$/.test(cleanPincode)) {
       setErrorMsg("Please enter a valid 6-digit postal pincode.");
       return;
     }
 
+    const isImmediateZone = cleanPincode.startsWith("851") || cleanPincode === "851133";
+    const priorityGroup = isImmediateZone
+      ? "Wave 1 - Immediate Launch Area (Teghra / Begusarai)"
+      : "Wave 2 - Priority State Rollout";
+    const randomSuffix = Math.floor(1000 + Math.random() * 9000);
+    const registrationId = `CNM-EA-${cleanPincode}-${randomSuffix}`;
+
     startTransition(async () => {
       try {
-        const res = await fetch("/api/early-access", {
+        const res = await fetch("https://formspree.io/f/mjgzywdj", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
           body: JSON.stringify({
-            ...form,
+            registrationId,
+            priorityGroup,
+            role: form.role,
+            name: form.name.trim(),
+            email: form.email.trim(),
             phone: cleanPhone,
-            turnstileToken,
+            pincode: cleanPincode,
+            address: form.address.trim() || "Not provided",
+            targetExam: form.targetExam || "Not applicable",
+            coachingName: form.coachingName.trim() || "Not provided",
+            subjectOrSpecialty: form.subjectOrSpecialty.trim() || "Not provided",
+            studentCount: form.studentCount || "Not applicable",
+            preferredFeatures: form.preferredFeatures.length > 0 ? form.preferredFeatures.join(", ") : "None selected",
+            notes: form.notes.trim() || "No additional notes",
+            submittedAt: new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }),
           }),
         });
 
-        const data = await res.json();
-        if (!res.ok) {
-          setErrorMsg(data.error || "Failed to submit. Please try again.");
-          return;
+        if (res.ok) {
+          setResult({
+            registrationId,
+            priorityGroup,
+            isImmediateZone,
+          });
+        } else {
+          const data = await res.json().catch(() => ({}));
+          setErrorMsg(data.error || "Failed to submit. Please check your connection and retry.");
         }
-
-        setResult({
-          registrationId: data.registrationId,
-          priorityGroup: data.priorityGroup,
-          isImmediateZone: data.isImmediateZone,
-        });
       } catch (err) {
         console.error("Submission error:", err);
         setErrorMsg("Network error occurred. Please check your connection and retry.");
@@ -634,12 +654,6 @@ export default function EarlyAccessPage() {
                       />
                     </div>
                   </div>
-
-                  {/* Cloudflare Turnstile */}
-                  <TurnstileWidget
-                    onVerify={(token) => setTurnstileToken(token)}
-                    onExpire={() => setTurnstileToken("")}
-                  />
 
                   {/* Error Alert */}
                   {errorMsg && (

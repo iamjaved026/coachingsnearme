@@ -27,27 +27,41 @@ export default function Waitlist() {
       return;
     }
 
+    const cleanPincode = pincode.trim();
+    const cleanPhone = phone.replace(/\D/g, "").slice(-10);
+    const isImmediateZone = cleanPincode.startsWith("851") || cleanPincode === "851133";
+    const priorityGroup = isImmediateZone
+      ? "Wave 1 - Immediate Launch Area (Teghra / Begusarai)"
+      : "Wave 2 - Priority State Rollout";
+    const randomSuffix = Math.floor(1000 + Math.random() * 9000);
+    const genId = `CNM-EA-${cleanPincode}-${randomSuffix}`;
+
     setIsSubmitting(true);
     try {
-      const response = await fetch("/api/early-access", {
+      const response = await fetch("https://formspree.io/f/mjgzywdj", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
+          Accept: "application/json",
         },
         body: JSON.stringify({
+          registrationId: genId,
+          priorityGroup,
           role,
-          name,
-          email,
-          phone,
-          pincode,
+          name: name.trim(),
+          email: email.trim(),
+          phone: cleanPhone,
+          pincode: cleanPincode,
+          source: "Homepage Quick Intake",
+          submittedAt: new Date().toLocaleString("en-IN", { timeZone: "Asia/Kolkata" }),
         }),
       });
 
-      const data = await response.json();
-      if (response.ok && data.success) {
+      if (response.ok) {
         setSubmitted(true);
-        setRegistrationId(data.registrationId);
+        setRegistrationId(genId);
       } else {
+        const data = await response.json().catch(() => ({}));
         setError(data.error || "Submission failed. Please try again.");
       }
     } catch (err) {
